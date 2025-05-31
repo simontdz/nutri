@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha Clínica Nutricional Completa</title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="estilo.css"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 </head>
 
 <body>
@@ -705,27 +706,29 @@
     </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
         const darkmodeToggle = document.getElementById('darkmode-toggle');
-        const body = document.body;
-
+        const htmlElement = document.documentElement;
+        
         // Verificar tema almacenado
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
-            body.classList.add('dark-mode');
+            htmlElement.classList.add('dark-mode');
             darkmodeToggle.checked = true;
         }
 
-        // Alternar modo oscuro
-        darkmodeToggle.addEventListener('change', () => {
-            if (darkmodeToggle.checked) {
-                body.classList.add('dark-mode');
+        // Alternar modo oscuro con mejor compatibilidad
+        darkmodeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                htmlElement.classList.add('dark-mode');
                 localStorage.setItem('theme', 'dark');
             } else {
-                body.classList.remove('dark-mode');
+                htmlElement.classList.remove('dark-mode');
                 localStorage.setItem('theme', 'light');
             }
         });
-    </script>
+    });
+</script>
 
 
 

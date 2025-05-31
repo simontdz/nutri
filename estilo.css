@@ -23,6 +23,7 @@
 }
 
 /* Variables modo oscuro */
+/* En lugar de body.dark-mode */
 .dark-mode {
     --primary-color: #ffffff;
     --secondary-color: #398784;
@@ -38,6 +39,10 @@
     --toggle-handle: linear-gradient(180deg, #777, #3a3a3a);
 }
 
+/* Aplicar al elemento raíz */
+html.dark-mode {
+    background-color: #121212;
+}
 body {
     background-color: var(--background-color);
     padding: 1rem;
@@ -410,3 +415,28 @@ body {
                 right: 1rem;
             }
         }
+        
+        /* Mejoras de compatibilidad */
+#darkmode-toggle + label svg.moon path {
+    fill: currentColor;
+}
+
+#darkmode-toggle + label svg.sun path {
+    fill: currentColor;
+}
+
+.dark-mode #darkmode-toggle + label svg.moon path {
+    fill: #fff;
+}
+
+@media (-webkit-min-device-pixel-ratio: 0) {
+    /* Solución específica para Safari */
+    #darkmode-toggle + label:active:after {
+        transform: translateX(0);
+    }
+}
+
+/* Prevenir zoom en inputs en iOS */
+input, select, textarea {
+    font-size: 16px !important;
+}
