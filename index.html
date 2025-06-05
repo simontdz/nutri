@@ -3,64 +3,94 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha Clínica Nutricional Completa</title>
-    <link rel="stylesheet" href="estilo.css"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>nutri</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename = 'imgs/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 </head>
 
+<!-- En la parte superior del contenedor, después del título
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{{ url_for('ver_pacientes') }}">Ver Lista de Pacientes</a>
+</div>
+ -->
+
 <body>
+
+
+    {% if msg %}
+    <p class="msg">{{ msg }}</p>
+    {% endif %}
+
     <div class="container">
-        
-                <!-- Botón modo oscuro mejorado -->
+
+        <!-- Botón modo oscuro -->
         <div class="theme-toggle-container">
             <input type="checkbox" id="darkmode-toggle">
             <label for="darkmode-toggle">
                 <svg class="moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.39703 11.6315C3.39703 16.602 7.42647 20.6315 12.397 20.6315C15.6858 20.6315 18.5656 18.8664 20.1358 16.23C16.7285 17.3289 12.6922 16.7548 9.98282 14.0455C7.25201 11.3146 6.72603 7.28415 7.86703 3.89293C5.20697 5.47927 3.39703 8.38932 3.39703 11.6315ZM21.187 13.5851C22.0125 13.1021 23.255 13.6488 23 14.5706C21.7144 19.2187 17.4543 22.6315 12.397 22.6315C6.3219 22.6315 1.39703 17.7066 1.39703 11.6315C1.39703 6.58874 4.93533 2.25845 9.61528 0.999986C10.5393 0.751502 11.0645 1.99378 10.5641 2.80935C8.70026 5.84656 8.83194 10.0661 11.397 12.6312C13.9319 15.1662 18.1365 15.3702 21.187 13.5851Z" fill="#0F0F0F"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M3.39703 11.6315C3.39703 16.602 7.42647 20.6315 12.397 20.6315C15.6858 20.6315 18.5656 18.8664 20.1358 16.23C16.7285 17.3289 12.6922 16.7548 9.98282 14.0455C7.25201 11.3146 6.72603 7.28415 7.86703 3.89293C5.20697 5.47927 3.39703 8.38932 3.39703 11.6315ZM21.187 13.5851C22.0125 13.1021 23.255 13.6488 23 14.5706C21.7144 19.2187 17.4543 22.6315 12.397 22.6315C6.3219 22.6315 1.39703 17.7066 1.39703 11.6315C1.39703 6.58874 4.93533 2.25845 9.61528 0.999986C10.5393 0.751502 11.0645 1.99378 10.5641 2.80935C8.70026 5.84656 8.83194 10.0661 11.397 12.6312C13.9319 15.1662 18.1365 15.3702 21.187 13.5851Z"
+                        fill="#0F0F0F" />
                 </svg>
                 <svg class="sun" fill="#000000" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <title>sun-alt</title>
-                    <path d="M16 9.25c-3.728 0-6.75 3.022-6.75 6.75s3.022 6.75 6.75 6.75c3.728 0 6.75-3.022 6.75-6.75v0c-0.005-3.726-3.024-6.745-6.75-6.75h-0zM16 21.25c-2.899 0-5.25-2.351-5.25-5.25s2.351-5.25 5.25-5.25c2.899 0 5.25 2.351 5.25 5.25v0c-0.004 2.898-2.352 5.246-5.25 5.25h-0zM22.848 9.897c0 0 0 0 0.001 0 0.207 0 0.395-0.084 0.531-0.22l5.168-5.168c0.136-0.136 0.219-0.323 0.219-0.53 0-0.415-0.336-0.751-0.751-0.751-0.208 0-0.395 0.084-0.531 0.22v0l-5.168 5.168c-0.136 0.136-0.22 0.323-0.22 0.53 0 0.414 0.336 0.75 0.75 0.75 0 0 0.001 0 0.001 0h-0zM23.379 22.322c-0.136-0.136-0.324-0.22-0.531-0.22-0.415 0-0.751 0.336-0.751 0.751 0 0.207 0.084 0.395 0.22 0.531l5.152 5.152c0.136 0.136 0.324 0.22 0.531 0.22 0.415 0 0.751-0.336 0.751-0.751 0-0.207-0.084-0.395-0.22-0.531v0zM8.621 9.678c0.135 0.131 0.319 0.212 0.523 0.212 0.414 0 0.75-0.336 0.75-0.75 0-0.203-0.081-0.388-0.212-0.523l0 0-5.151-5.152c-0.136-0.14-0.327-0.227-0.538-0.227-0.414 0-0.75 0.336-0.75 0.75 0 0.211 0.087 0.401 0.227 0.537l0 0zM16 24.934c-0.414 0-0.75 0.336-0.75 0.75v0 4.307c0 0.414 0.336 0.75 0.75 0.75s0.75-0.336 0.75-0.75v0-4.307c-0-0.414-0.336-0.75-0.75-0.75v0zM16 7.058c0.414-0 0.75-0.336 0.75-0.75v0-4.308c0-0.414-0.336-0.75-0.75-0.75s-0.75 0.336-0.75 0.75v0 4.308c0 0.414 0.336 0.75 0.75 0.75v0zM29.996 15.25h-4.309c-0.414 0-0.75 0.336-0.75 0.75s0.336 0.75 0.75 0.75v0h4.309c0.414 0 0.75-0.336 0.75-0.75s-0.336-0.75-0.75-0.75v0zM7.063 16c-0-0.414-0.336-0.75-0.75-0.75h-4.308c-0.414 0-0.75 0.336-0.75 0.75s0.336 0.75 0.75 0.75v0h4.308c0.414-0 0.75-0.336 0.75-0.75v0zM8.621 22.322l-5.151 5.154c-0.131 0.135-0.212 0.319-0.212 0.523 0 0.414 0.336 0.75 0.75 0.75 0.203 0 0.388-0.081 0.523-0.212l-0 0 5.151-5.154c0.14-0.136 0.227-0.327 0.227-0.538 0-0.414-0.336-0.75-0.75-0.75-0.211 0-0.401 0.087-0.538 0.227l-0 0zM20.4 24.664c-0.116-0.273-0.382-0.46-0.692-0.46-0.414 0-0.75 0.336-0.75 0.75 0 0.102 0.021 0.2 0.058 0.289l-0.002-0.005 0.436 1.049c0.116 0.274 0.383 0.462 0.693 0.463h0c0 0 0.001 0 0.001 0 0.414 0 0.749-0.336 0.749-0.749 0-0.104-0.021-0.203-0.059-0.293l0.002 0.005zM11.601 7.337c0.116 0.273 0.382 0.461 0.692 0.461 0.414 0 0.75-0.336 0.75-0.75 0-0.103-0.021-0.201-0.058-0.29l0.002 0.005-0.436-1.050c-0.116-0.274-0.382-0.462-0.692-0.462-0.414 0-0.75 0.336-0.75 0.75 0 0.104 0.021 0.202 0.059 0.292l-0.002-0.005zM25.24 12.99l1.047-0.434c0.274-0.116 0.463-0.382 0.463-0.693 0-0.414-0.336-0.75-0.75-0.75-0.104 0-0.202 0.021-0.292 0.059l0.005-0.002-1.047 0.434c-0.274 0.116-0.463 0.382-0.463 0.693 0 0.414 0.336 0.75 0.75 0.75 0 0 0 0 0 0h-0c0.104-0 0.202-0.021 0.292-0.059l-0.005 0.002zM6.765 19.018l-1.052 0.436c-0.272 0.117-0.46 0.382-0.46 0.692 0 0.414 0.336 0.75 0.75 0.75 0.102 0 0.2-0.020 0.288-0.057l-0.005 0.002 1.052-0.436c0.276-0.115 0.466-0.383 0.466-0.695 0-0.414-0.336-0.75-0.75-0.75-0.105 0-0.204 0.021-0.295 0.060l0.005-0.002zM24.664 20.4l1.049 0.436c0.084 0.036 0.182 0.057 0.285 0.057 0.001 0 0.002 0 0.002 0h-0c0 0 0 0 0 0 0.414 0 0.75-0.336 0.75-0.75 0-0.311-0.189-0.578-0.459-0.691l-0.005-0.002-1.049-0.436c-0.084-0.035-0.182-0.056-0.284-0.056-0.414 0-0.75 0.336-0.75 0.75 0 0.31 0.188 0.576 0.456 0.69l0.005 0.002zM7.337 11.601l-1.050-0.436c-0.085-0.036-0.184-0.057-0.287-0.057-0.414 0-0.75 0.336-0.75 0.75 0 0.31 0.189 0.577 0.458 0.691l0.005 0.002 1.050 0.436c0.084 0.036 0.182 0.056 0.285 0.056 0.414 0 0.75-0.336 0.75-0.75 0-0.31-0.188-0.575-0.456-0.69l-0.005-0.002zM19.424 7.745c0.085 0.036 0.184 0.056 0.287 0.057h0c0 0 0.001 0 0.001 0 0.31 0 0.577-0.189 0.69-0.458l0.002-0.005 0.436-1.052c0.036-0.085 0.057-0.184 0.057-0.287 0-0.414-0.336-0.75-0.75-0.75-0.311 0-0.578 0.189-0.692 0.458l-0.002 0.005-0.436 1.052c-0.036 0.085-0.057 0.183-0.057 0.287 0 0.311 0.189 0.578 0.458 0.692l0.005 0.002zM12.584 24.26c-0.085-0.036-0.184-0.057-0.287-0.057-0.311 0-0.578 0.189-0.692 0.458l-0.002 0.005-0.434 1.047c-0.036 0.085-0.057 0.184-0.057 0.287 0 0.414 0.336 0.75 0.75 0.75 0.311 0 0.578-0.189 0.691-0.458l0.002-0.005 0.434-1.047c0.036-0.085 0.057-0.183 0.057-0.287 0-0.311-0.189-0.578-0.458-0.692l-0.005-0.002z"></path>
+                    <path
+                        d="M16 9.25c-3.728 0-6.75 3.022-6.75 6.75s3.022 6.75 6.75 6.75c3.728 0 6.75-3.022 6.75-6.75v0c-0.005-3.726-3.024-6.745-6.75-6.75h-0zM16 21.25c-2.899 0-5.25-2.351-5.25-5.25s2.351-5.25 5.25-5.25c2.899 0 5.25 2.351 5.25 5.25v0c-0.004 2.898-2.352 5.246-5.25 5.25h-0zM22.848 9.897c0 0 0 0 0.001 0 0.207 0 0.395-0.084 0.531-0.22l5.168-5.168c0.136-0.136 0.219-0.323 0.219-0.53 0-0.415-0.336-0.751-0.751-0.751-0.208 0-0.395 0.084-0.531 0.22v0l-5.168 5.168c-0.136 0.136-0.22 0.323-0.22 0.53 0 0.414 0.336 0.75 0.75 0.75 0 0 0.001 0 0.001 0h-0zM23.379 22.322c-0.136-0.136-0.324-0.22-0.531-0.22-0.415 0-0.751 0.336-0.751 0.751 0 0.207 0.084 0.395 0.22 0.531l5.152 5.152c0.136 0.136 0.324 0.22 0.531 0.22 0.415 0 0.751-0.336 0.751-0.751 0-0.207-0.084-0.395-0.22-0.531v0zM8.621 9.678c0.135 0.131 0.319 0.212 0.523 0.212 0.414 0 0.75-0.336 0.75-0.75 0-0.203-0.081-0.388-0.212-0.523l0 0-5.151-5.152c-0.136-0.14-0.327-0.227-0.538-0.227-0.414 0-0.75 0.336-0.75 0.75 0 0.211 0.087 0.401 0.227 0.537l0 0zM16 24.934c-0.414 0-0.75 0.336-0.75 0.75v0 4.307c0 0.414 0.336 0.75 0.75 0.75s0.75-0.336 0.75-0.75v0-4.307c-0-0.414-0.336-0.75-0.75-0.75v0zM16 7.058c0.414-0 0.75-0.336 0.75-0.75v0-4.308c0-0.414-0.336-0.75-0.75-0.75s-0.75 0.336-0.75 0.75v0 4.308c0 0.414 0.336 0.75 0.75 0.75v0zM29.996 15.25h-4.309c-0.414 0-0.75 0.336-0.75 0.75s0.336 0.75 0.75 0.75v0h4.309c0.414 0 0.75-0.336 0.75-0.75s-0.336-0.75-0.75-0.75v0zM7.063 16c-0-0.414-0.336-0.75-0.75-0.75h-4.308c-0.414 0-0.75 0.336-0.75 0.75s0.336 0.75 0.75 0.75v0h4.308c0.414-0 0.75-0.336 0.75-0.75v0zM8.621 22.322l-5.151 5.154c-0.131 0.135-0.212 0.319-0.212 0.523 0 0.414 0.336 0.75 0.75 0.75 0.203 0 0.388-0.081 0.523-0.212l-0 0 5.151-5.154c0.14-0.136 0.227-0.327 0.227-0.538 0-0.414-0.336-0.75-0.75-0.75-0.211 0-0.401 0.087-0.538 0.227l-0 0zM20.4 24.664c-0.116-0.273-0.382-0.46-0.692-0.46-0.414 0-0.75 0.336-0.75 0.75 0 0.102 0.021 0.2 0.058 0.289l-0.002-0.005 0.436 1.049c0.116 0.274 0.383 0.462 0.693 0.463h0c0 0 0.001 0 0.001 0 0.414 0 0.749-0.336 0.749-0.749 0-0.104-0.021-0.203-0.059-0.293l0.002 0.005zM11.601 7.337c0.116 0.273 0.382 0.461 0.692 0.461 0.414 0 0.75-0.336 0.75-0.75 0-0.103-0.021-0.201-0.058-0.29l0.002 0.005-0.436-1.050c-0.116-0.274-0.382-0.462-0.692-0.462-0.414 0-0.75 0.336-0.75 0.75 0 0.104 0.021 0.202 0.059 0.292l-0.002-0.005zM25.24 12.99l1.047-0.434c0.274-0.116 0.463-0.382 0.463-0.693 0-0.414-0.336-0.75-0.75-0.75-0.104 0-0.202 0.021-0.292 0.059l0.005-0.002-1.047 0.434c-0.274 0.116-0.463 0.382-0.463 0.693 0 0.414 0.336 0.75 0.75 0.75 0 0 0 0 0 0h-0c0.104-0 0.202-0.021 0.292-0.059l-0.005 0.002zM6.765 19.018l-1.052 0.436c-0.272 0.117-0.46 0.382-0.46 0.692 0 0.414 0.336 0.75 0.75 0.75 0.102 0 0.2-0.020 0.288-0.057l-0.005 0.002 1.052-0.436c0.276-0.115 0.466-0.383 0.466-0.695 0-0.414-0.336-0.75-0.75-0.75-0.105 0-0.204 0.021-0.295 0.060l0.005-0.002zM24.664 20.4l1.049 0.436c0.084 0.036 0.182 0.057 0.285 0.057 0.001 0 0.002 0 0.002 0h-0c0 0 0 0 0 0 0.414 0 0.75-0.336 0.75-0.75 0-0.311-0.189-0.578-0.459-0.691l-0.005-0.002-1.049-0.436c-0.084-0.035-0.182-0.056-0.284-0.056-0.414 0-0.75 0.336-0.75 0.75 0 0.31 0.188 0.576 0.456 0.69l0.005 0.002zM7.337 11.601l-1.050-0.436c-0.085-0.036-0.184-0.057-0.287-0.057-0.414 0-0.75 0.336-0.75 0.75 0 0.31 0.189 0.577 0.458 0.691l0.005 0.002 1.050 0.436c0.084 0.036 0.182 0.056 0.285 0.056 0.414 0 0.75-0.336 0.75-0.75 0-0.31-0.188-0.575-0.456-0.69l-0.005-0.002zM19.424 7.745c0.085 0.036 0.184 0.056 0.287 0.057h0c0 0 0.001 0 0.001 0 0.31 0 0.577-0.189 0.69-0.458l0.002-0.005 0.436-1.052c0.036-0.085 0.057-0.184 0.057-0.287 0-0.414-0.336-0.75-0.75-0.75-0.311 0-0.578 0.189-0.692 0.458l-0.002 0.005-0.436 1.052c-0.036 0.085-0.057 0.183-0.057 0.287 0 0.311 0.189 0.578 0.458 0.692l0.005 0.002zM12.584 24.26c-0.085-0.036-0.184-0.057-0.287-0.057-0.311 0-0.578 0.189-0.692 0.458l-0.002 0.005-0.434 1.047c-0.036 0.085-0.057 0.184-0.057 0.287 0 0.414 0.336 0.75 0.75 0.75 0.311 0 0.578-0.189 0.691-0.458l0.002-0.005 0.434-1.047c0.036-0.085 0.057-0.183 0.057-0.287 0-0.311-0.189-0.578-0.458-0.692l-0.005-0.002z">
+                    </path>
                 </svg>
             </label>
         </div>
 
-
-
-
         <h1>Ficha Clínica Nutricional</h1>
 
-        <form id="fichaClinica">
+        <form action="{{ url_for('registrarForm') }}" method="POST" autocomplete="off">
 
             <!-- Sección Motivo de Consulta -->
             <div class="section">
                 <h2 class="section-title">Motivo de Consulta</h2>
                 <div class="input-group">
-                    <textarea id="motivoConsulta" rows="4"
+                    <textarea name="descripcion" id="motivoConsulta" rows="4"
                         placeholder="Describa el motivo de la consulta..."></textarea>
                 </div>
             </div>
+
 
             <!-- Sección Anamnesis Social -->
             <div class="section">
                 <h2 class="section-title">Anamnesis Social</h2>
                 <div class="form-grid">
+
                     <div class="input-group">
-                        <label>Nombre</label>
-                        <input type="text" required>
+                        <label for="nombre">Nombre</label>
+                        <input name="nombre" type="text">
                     </div>
+
+                    <div class="input-group">
+                        <label>Sexo:</label>
+                        <select type="text" name="sexo">
+                            <option value="">Seleccionar</option>
+                            <option>Femenino</option>
+                            <option>Masculino</option>
+                        </select>
+                    </div>
+
                     <div class="input-group">
                         <label>Fecha de Nacimiento</label>
-                        <input type="date" required>
+                        <input name="nacimiento" type="date">
                     </div>
+
                     <div class="input-group">
-                        <label>Edad</label>
-                        <input type="number" required>
+                        <label for="edad">Edad</label>
+                        <input name="edad" type="number">
                     </div>
+
                     <div class="input-group">
                         <label>Estado Civil</label>
-                        <select required>
+                        <select name="estado_civil" type="text">
                             <option value="">Seleccionar</option>
                             <option>Soltero</option>
                             <option>Casado</option>
@@ -68,106 +98,101 @@
                             <option>Viudo</option>
                         </select>
                     </div>
+
+
                 </div>
 
+
                 <div class="input-group">
-                    <label>Rango Etario</label>
+                    <label>Rango Etario:</label>
                     <div class="checkbox-group">
                         <label class="checkbox-item">
-                            <input type="checkbox"> Lactante
+                            <input type="checkbox" name="etario[]" value="Lactante"> Lactante
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Preescolar
+                            <input type="checkbox" name="etario[]" value="Preescolar"> Preescolar
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Escolar
+                            <input type="checkbox" name="etario[]" value="Escolar"> Escolar
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Adolescente
+                            <input type="checkbox" name="etario[]" value="Adolescente"> Adolescente
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Adulto
+                            <input type="checkbox" name="etario[]" value="Adulto"> Adulto
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Adulto Mayor
+                            <input type="checkbox" name="etario[]" value="Adulto Mayor"> Adulto Mayor
                         </label>
                     </div>
                 </div>
+
 
                 <!-- Sección 3: Datos Laborales y Escolaridad -->
                 <div class="section">
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Ocupación</label>
-                            <input type="text">
+                            <input name="ocupacion" type="text">
                         </div>
                         <div class="input-group">
                             <label>Lugar de Trabajo</label>
-                            <input type="text">
+                            <input name="trabajo" type="text">
                         </div>
                         <div class="input-group">
                             <label>Escolaridad</label>
-                            <select>
+                            <select name="escolaridad" type="text">
                                 <option value="">Seleccionar</option>
                                 <option>Básica Incompleta</option>
                                 <option>Básica Completa</option>
                                 <option>Media Completa</option>
+                                <option>Media Incompleta</option>
                                 <option>Enseñanza Superior Completa</option>
+                                <option>Enseñanza Superior Incompleta</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                    <!-- Sección 4: Antecedentes familiares -->
-                    <div class="section">
-                        <div class="input-group">
-                            <label>¿Con quien vive?</label>
-                            <div class="checkbox-group">
+                <!-- Sección 4: Antecedentes familiares -->
+                <div class="section">
+                    <div class="input-group">
+                        <label>¿Con quien vive?</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="convivencia[]" value="Madre"> Madre
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="convivencia[]" value="Padre"> Padre
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="convivencia[]" value="Hermanos"> Hermano/a
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="convivencia[]" value="Hijos"> Hijos/as
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="convivencia[]" value="Abuelos"> Abuelos
+                            </label>
+                            <div class="inline-group">
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Madre
+                                    <input type="checkbox"> Otros:
                                 </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox"> Padre
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox"> Hermano/a
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox"> Hijos/as
-                                </label>
-                                <label class="checkbox-item">
-                                    <input type="checkbox"> Abuelos
-                                </label>
-                                <div class="inline-group">
-                                    <label class="checkbox-item">
-                                        <input type="checkbox"> Otros:
-                                    </label>
-                                    <input type="text" style="flex:1">
-                                </div>
+                                <input type="text" style="flex:1" name="convivencia[]">
                             </div>
-
-                        <div class="input-group">
-                            <label>Nombre con quien asiste a la consulta</label>
-                            <input type="text" required>
-                        </div>
-                        <div class="input-group">
-                            <label>Antecedentes de Nacimiento en caso de Alimentación complementaria:</label>
-                            <input type="text" required>
                         </div>
                     </div>
                 </div>
 
-
-
-
-
+                <div class="input-group">
+                    <label>Nombre con quien asiste a la consulta</label>
+                    <input name="acompañante" type="text">
+                </div>
+                <div class="input-group">
+                    <label>Antecedentes de Nacimiento en caso de Alimentación complementaria:</label>
+                    <input name="a_complementaria" type="text">
+                </div>
             </div>
-
-
-
-
-
-
             <!-- Sección 4: Antecedentes Clínicos -->
             <div class="section">
                 <h2 class="section-title">Anamnesis Clinica </h2>
@@ -175,51 +200,54 @@
                     <label>Antecedentes Mórbidos</label>
                     <div class="checkbox-group">
                         <label class="checkbox-item">
-                            <input type="checkbox"> Hipertensión Arterial
+                            <input name="ant_morbidos[]" value="Hipertensión Arterial" type="checkbox"> Hipertensión
+                            Arterial
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Diabetes
+                            <input name="ant_morbidos[]" value="Diabetes" type="checkbox"> Diabetes
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Dislipidemia
+                            <input name="ant_morbidos[]" value="Dislipidemia" type="checkbox"> Dislipidemia
                         </label>
                         <label class="checkbox-item">
-                            <input type="checkbox"> Resistencia a la Insulina
+                            <input name="ant_morbidos[]" value="Resistencia a la Insulina" type="checkbox"> Resistencia
+                            a la Insulina
                         </label>
                         <div class="inline-group">
                             <label class="checkbox-item">
                                 <input type="checkbox"> Otras:
                             </label>
-                            <input type="text" style="flex:1">
+                            <input name="ant_morbidos[]" type="text" style="flex:1">
                         </div>
                     </div>
                 </div>
+
 
                 <div class="form-grid">
                     <div class="input-group">
                         <label>Consumo de Alcohol</label>
                         <div class="radio-group">
                             <label class="radio-item">
-                                <input type="radio" name="alcohol"> Sí
+                                <input type="radio" name="alcohol" value="Sí"> Sí
                             </label>
                             <label class="radio-item">
-                                <input type="radio" name="alcohol"> No
+                                <input type="radio" name="alcohol" value="No"> No
                             </label>
                         </div>
                     </div>
+
                     <div class="input-group">
                         <label>Consumo de Tabaco</label>
                         <div class="radio-group">
                             <label class="radio-item">
-                                <input type="radio" name="tabaco"> Sí
+                                <input type="radio" name="tabaco" value="Sí" required> Sí
                             </label>
                             <label class="radio-item">
-                                <input type="radio" name="tabaco"> No
+                                <input type="radio" name="tabaco" value="No" required> No
                             </label>
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Sección 5: Signos y Síntomas -->
                 <div class="section">
@@ -227,47 +255,61 @@
                     <div class="form-grid">
                         <div class="checkbox-group">
                             <label class="checkbox-item">
-                                <input type="checkbox"> Insomnio
+                                <input type="checkbox" name="sintomas[]" value="Insomnio"> Insomnio
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Cefalea
+                                <input type="checkbox" name="sintomas[]" value="Cefalea"> Cefalea
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Ansiedad
+                                <input type="checkbox" name="sintomas[]" value="Ansiedad"> Ansiedad
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Fatiga
+                                <input type="checkbox" name="sintomas[]" value="Fatiga"> Fatiga
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Poliurea
+                                <input type="checkbox" name="sintomas[]" value="Poliurea"> Poliurea
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Polifagia
+                                <input type="checkbox" name="sintomas[]" value="Polifagia"> Polifagia
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Indigestión
+                                <input type="checkbox" name="sintomas[]" value="Indigestión"> Indigestión
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Tinnitus
+                                <input type="checkbox" name="sintomas[]" value="Tinnitus"> Tinnitus
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Dolor estomacal
+                                <input type="checkbox" name="sintomas[]" value="Dolor estomacal"> Dolor estomacal
                             </label>
                         </div>
 
                     </div>
                     <div class="inline-group">
-                        <label class="checkbox-item">
-                            <input type="checkbox"> Orina:
-                        </label>
-                        <input type="text" style="flex:1">
-                        <label class="checkbox-item">
-                            <input type="checkbox"> Otro:
-                        </label>
-                        <input type="text" style="flex:1">
-                    </div>
 
+                        <label class="checkbox-item">
+                            <input type="checkbox">Otro:
+                        </label>
+                        <input type="text" style="flex:1" name="sintomas[]">
+                    </div>
                 </div>
+
+
+
+                <!-- Sección 5: Orina y Heces    -->
+                <div class="section">
+                    <label>Orina</label>
+                    <div class="form-grid">
+                        <input placeholder="Orina:" type="text" style="flex:1" name="orina">
+                    </div>
+                </div>
+
+                <div class="section">
+                    <label>Heces</label>
+                    <div class="form-grid">
+                        <input placeholder="Heces:" type="text" style="flex:1" name="heces">
+                    </div>
+                </div>
+
 
 
                 <!-- Sección 6: Datos Médicos -->
@@ -278,72 +320,73 @@
                             <label>Uso de protesis dental</label>
                             <div class="radio-group">
                                 <label class="radio-item">
-                                    <input type="radio" name="dental"> Sí
+                                    <input type="radio" name="protesis" value="Sí" required> Sí
                                 </label>
                                 <label class="radio-item">
-                                    <input type="radio" name="dental"> No
+                                    <input type="radio" name="protesis" value="No" required> No
                                 </label>
                             </div>
                         </div>
 
                         <div class="input-group">
                             <label>Presión Arterial</label>
-                            <input type="text" placeholder="120/80">
+                            <input name="p_arterial" type="text" placeholder="120/80">
                         </div>
                         <div class="input-group">
                             <label>Frecuencia Cardíaca</label>
-                            <input type="number" placeholder="lpm">
+                            <input name="f_cardiaca" type="number" placeholder="lpm">
                         </div>
                         <div class="input-group">
                             <label>Hemoglucotest</label>
-                            <input type="number" placeholder="mg/dL">
+                            <input name="hemoglucotest" type="number" placeholder="mg/dL">
                         </div>
                     </div>
                 </div>
+
                 <!-- Sección de Farmacos y Suplementos -->
                 <div class="section">
                     <div class="form-grid">
                         <div class="input-group">
                             <label>Fármacos</label>
-                            <textarea rows="3" placeholder="Listado de medicamentos"></textarea>
+                            <textarea name="farmacos" rows="3" placeholder="Listado de medicamentos"></textarea>
                         </div>
                         <div class="input-group">
                             <label>Suplementos</label>
-                            <textarea rows="3" placeholder="Suplementos alimenticios"></textarea>
+                            <textarea name="suplementos" rows="3" placeholder="Suplementos alimenticios"></textarea>
                         </div>
                         <div class="input-group">
                             <label>Exámenes Bioquímicos</label>
-                            <textarea rows="3" placeholder="Resultados de exámenes"></textarea>
+                            <textarea name="e_bioquimicos" rows="3" placeholder="Resultados de exámenes"></textarea>
                         </div>
                     </div>
                 </div>
 
                 <!-- Examen Físico -->
                 <div class="section">
-                     <label> Examen Físico</label>
+                    <label> Examen Físico</label>
                     <div class="form-grid">
                         <div class="checkbox-group">
                             <label class="checkbox-item">
-                                <input type="checkbox"> Dermatitis
+                                <input type="checkbox" name="e_fisico[]" value="Dermatitis"> Dermatitis
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Hematomas
+                                <input type="checkbox" name="e_fisico[]" value="Hematomas"> Hematomas
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Picaduras
+                                <input type="checkbox" name="e_fisico[]" value="Picaduras"> Picaduras
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Abdomen Distendido
+                                <input type="checkbox" name="e_fisico[]" value="Abdomen Distendido"> Abdomen Distendido
                             </label>
 
                             <label class="checkbox-item">
-                                <input type="checkbox"> Caries
+                                <input type="checkbox" name="e_fisico[]" value="Caries"> Caries
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Erupción Dental
+                                <input type="checkbox" name="e_fisico[]" value="Erupción Dental"> Erupción Dental
                             </label>
                             <label class="checkbox-item">
-                                <input type="checkbox"> Fontanelas
+                                <input type="checkbox" name="e_fisico[]" value="Fontanelas"> Fontanelas
                             </label>
                         </div>
                     </div>
@@ -352,10 +395,10 @@
                         <label>EMPA/EMPAM Vigente:</label>
                         <div class="radio-group">
                             <label class="radio-item">
-                                <input type="radio" name="empa"> Sí
+                                <input type="radio" name="empa" value="Sí" required> Sí
                             </label>
                             <label class="radio-item">
-                                <input type="radio" name="empa"> No
+                                <input type="radio" name="empa" value="No" required> No
                             </label>
                         </div>
                     </div>
@@ -363,43 +406,49 @@
             </div>
 
 
+
             <!-- Anamnesis Alimentaria -->
             <div class="section">
                 <h2 class="section-title">Anamnesis Alimentaria</h2>
 
                 <div class="diet-section">
+
                     <div class="input-group">
                         <label>Intolerancias, Aversiones o Alergias:</label>
                         <div class="radio-group">
                             <label class="radio-item">
-                                <input type="radio" name="alergias"> Sí
-                                <input type="text" placeholder="Especificar" style="margin-left: 1rem;">
+                                <input type="radio" name="alergias" value="Si" required
+                                    onclick="toggleAlergiaEspecificacion(true)"> Sí
+                                <input type="text" id="especificacion_alergias" name="especificacion_alergias"
+                                    placeholder="Especificar" style="margin-left: 1rem; display: none;">
                             </label>
                             <label class="radio-item">
-                                <input type="radio" name="alergias"> No
+                                <input type="radio" name="alergias" value="No" required
+                                    onclick="toggleAlergiaEspecificacion(false)"> No
                             </label>
                         </div>
                     </div>
+
 
                     <div class="form-grid" style="margin-top: 1.5rem;">
                         <div class="input-group">
                             <label>Lugar de consumo de alimentos:</label>
                             <div class="checkbox-group">
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Hogar
+                                    <input type="checkbox" name="lugar_consumo[]" value="Hogar"> Hogar
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Trabajo
+                                    <input type="checkbox" name="lugar_consumo[]" value="Trabajo"> Trabajo
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Calle
+                                    <input type="checkbox" name="lugar_consumo[]" value="Calle"> Calle
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Casino
+                                    <input type="checkbox" name="lugar_consumo[]" value="Casino"> Casino
                                 </label>
                                 <label class="checkbox-item">
                                     <input type="checkbox"> Otro:
-                                    <input type="text" style="margin-left: 0.5rem;">
+                                    <input type="text" name="lugar_consumo[]" style="margin-left: 0.5rem;">
                                 </label>
                             </div>
                         </div>
@@ -408,23 +457,24 @@
                             <label>Quién prepara los alimentos:</label>
                             <div class="checkbox-group">
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Madre
+                                    <input type="checkbox" name="preparacion[]" value="Usted"> Usted
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Padre
+                                    <input type="checkbox" name="preparacion[]" value="Madre"> Madre
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Abuelo/a
+                                    <input type="checkbox" name="preparacion[]" value="Padre"> Padre
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Hijo/a
+                                    <input type="checkbox" name="preparacion[]" value="Abuelo/a"> Abuelo/a
                                 </label>
                                 <label class="checkbox-item">
-                                    <input type="checkbox"> Usted
+                                    <input type="checkbox" name="preparacion[]" value="Hijo/a"> Hijo/a
                                 </label>
+
                                 <label class="checkbox-item">
                                     <input type="checkbox"> Otro:
-                                    <input type="text" style="margin-left: 0.5rem;">
+                                    <input type="text" name="preparacion[]" style="margin-left: 0.5rem;">
                                 </label>
                             </div>
                         </div>
@@ -434,26 +484,30 @@
                 <div class="diet-section">
                     <div class="input-group">
                         <label>Preferencias Alimentarias:</label>
-                        <textarea rows="3" placeholder="Describa preferencias alimenticias"></textarea>
+                        <textarea rows="3" placeholder="Describa preferencias alimenticias"
+                            name="preferencias"></textarea>
                     </div>
 
                     <div class="form-grid" style="margin-top: 1rem;">
                         <div class="input-group">
                             <label>Suplementos Alimenticios:</label>
-                            <div class="inline-group">
+                            <div class="radio-group">
                                 <label class="radio-item">
-                                    <input type="radio" name="suplementos"> Sí
-                                    <input type="text" placeholder="Especificar" style="margin-left: 1rem;">
+                                    <input type="radio" name="s_alimenticios" value="Si" required
+                                        onclick="toggleSuplementosEspecificacion(true)"> Sí
+                                    <input type="text" id="especificacion_suplementos" name="especificacion_suplementos"
+                                        placeholder="Especificar" style="margin-left: 1rem; display: none;">
                                 </label>
                                 <label class="radio-item">
-                                    <input type="radio" name="suplementos"> No
+                                    <input type="radio" name="s_alimenticios" value="No" required
+                                        onclick="toggleSuplementosEspecificacion(false)"> No
                                 </label>
                             </div>
                         </div>
 
                         <div class="input-group">
                             <label>Consumo de Agua Diario:</label>
-                            <input type="text" placeholder="Ej: 2 litros">
+                            <input type="text" name="agua" placeholder="Ej: 2 litros">
                         </div>
 
 
@@ -461,10 +515,10 @@
                             <label>*PNAC:</label>
                             <div class="radio-group">
                                 <label class="radio-item">
-                                    <input type="radio" name="empa"> Sí
+                                    <input type="radio" name="pnac" value="Si"> Sí
                                 </label>
                                 <label class="radio-item">
-                                    <input type="radio" name="empa"> No
+                                    <input type="radio" name="pnac" value="No"> No
                                 </label>
                             </div>
                         </div>
@@ -472,15 +526,17 @@
                             <label>*PACAM:</label>
                             <div class="radio-group">
                                 <label class="radio-item">
-                                    <input type="radio" name="empa"> Sí
+                                    <input type="radio" name="pacam" value="Si"> Sí
                                 </label>
                                 <label class="radio-item">
-                                    <input type="radio" name="empa"> No
+                                    <input type="radio" name="pacam" value="No"> No
                                 </label>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 <!-- Frecuencia de consumo -->
                 <div class="section">
                     <h2 class="section-title2">Frecuencia de Consumo</h2>
@@ -489,71 +545,71 @@
                         <div class="frequency-grid">
                             <div class="frequency-item">
                                 <label>Pescado:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="pescado" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Vacuno: </label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="vacuno" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Cerdo:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="cerdo" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Pollo:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="pollo" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Pavo:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="pavo" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Legumbres:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="legumbres" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Verduras:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="verduras" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Huevo:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="huevo" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Embutidos:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="embutidos" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Frituras:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="frituras" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Dulces:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="dulces" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Bebidas:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="bebidas" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Lacteos:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="lacteos" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Frutas:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="frutas" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Sal:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="sal" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Caldos concentrados:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="caldos_concentrados" class="short-input">
                             </div>
                             <div class="frequency-item">
                                 <label>Sopas en sobre:</label>
-                                <input type="text" class="short-input">
+                                <input type="text" name="sopas" class="short-input">
                             </div>
                         </div>
 
@@ -561,81 +617,31 @@
                 </div>
 
             </div>
+
             <!-- Sección Encuesta 24 Horas -->
             <div class="section">
                 <h2 class="section-title">ENCUESTA 24 HORAS</h2>
                 <div class="form-grid">
                     <div class="input-group">
                         <label>Hora de levantarse:</label>
-                        <input type="time" required>
+                        <input type="time" name="hora_levantarse">
                     </div>
                     <div class="input-group">
                         <label>Hora de acostarse:</label>
-                        <input type="time" required>
+                        <input type="time" name="hora_acostarse">
                     </div>
                     <div class="input-group">
                         <label>¿Fue un día normal?</label>
                         <div class="radio-group">
                             <div class="radio-item">
-                                <input type="radio" id="normalSi" name="diaNormal" value="si" required>
+                                <input type="radio" id="normalSi" name="dia_normal" value="Si" required>
                                 <label for="normalSi">Sí</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" id="normalNo" name="diaNormal" value="no">
+                                <input type="radio" id="normalNo" name="dia_normal" value="No">
                                 <label for="normalNo">No</label>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sección Antropometría -->
-            <div class="section">
-                <h2 class="section-title">ANTROPOMETRÍA</h2>
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Peso (kg):</label>
-                        <input type="number" step="0.1" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Talla (m):</label>
-                        <input type="number" step="0.01" required>
-                    </div>
-                    <div class="input-group">
-                        <label>C. Cintura (cm):</label>
-                        <input type="number" required>
-                    </div>
-                    <div class="input-group">
-                        <label>IMC (Kg/m²):</label>
-                        <input type="number" class="calculated-field" readonly>
-                    </div>
-                    <div class="input-group">
-                        <label>Peso Máximo (kg):</label>
-                        <input type="number" class="calculated-field" readonly>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Sección Datos Paciente -->
-            <div class="section">
-                <h2 class="section-title">DATOS DEL PACIENTE</h2>
-                <div class="grid-container">
-                    <div class="input-group">
-                        <label>DNI:</label>
-                        <input type="text" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Sexo:</label>
-                        <select required>
-                            <option value="">Seleccionar...</option>
-                            <option value="F">Femenino</option>
-                            <option value="M">Masculino</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Estado nutricional:</label>
-                        <input type="text" required>
                     </div>
                 </div>
             </div>
@@ -657,20 +663,82 @@
                         <tbody>
                             <tr>
                                 <td>Aporte Minuta</td>
-                                <td><input type="number"></td>
-                                <td><input type="number"></td>
-                                <td><input type="number"></td>
-                                <td><input type="number"></td>
+                                <td><input type="number" name="aporte_minuta_kcal"></td>
+                                <td><input type="number" name="aporte_minuta_cho"></td>
+                                <td><input type="number" name="aporte_minuta_l"></td>
+                                <td><input type="number" name="aporte_minuta_p"></td>
                             </tr>
                             <tr>
                                 <td>Requerimientos</td>
-                                <td><input type="number"></td>
-                                <td><input type="number"></td>
-                                <td><input type="number"></td>
-                                <td><input type="number"></td>
+                                <td><input type="number" name="requerimientos_kcal"></td>
+                                <td><input type="number" name="requerimientos_cho"></td>
+                                <td><input type="number" name="requerimientos_l"></td>
+                                <td><input type="number" name="requerimientos_p"></td>
+                            </tr>
+                            <tr>
+                                <td>Adecuación</td>
+                                <td><input type="number" name="adecuacion_kcal" readonly></td>
+                                <td><input type="number" name="adecuacion_cho" readonly></td>
+                                <td><input type="number" name="adecuacion_l" readonly></td>
+                                <td><input type="number" name="adecuacion_p" readonly></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- Sección Antropometría -->
+            <div class="section">
+                <h2 class="section-title">ANTROPOMETRÍA</h2>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Peso (kg):</label>
+                        <input id="peso" name="peso" type="number" step="0.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Talla (m):</label>
+                        <input id="talla" name="talla" type="number" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>C. Cintura (cm):</label>
+                        <input id="cintura" name="cintura" type="number">
+                    </div>
+                    <div class="input-group">
+                        <label>IMC (Kg/m²):</label>
+                        <input id="imc" name="imc" type="number" class="calculated-field" readonly>
+                    </div>
+                    <div class="input-group">
+                        <label>Peso Máximo (kg):</label>
+                        <input id="peso_max" name="peso_max" type="number" class="calculated-field" readonly>
+                    </div>
+                </div>
+            </div>
+            <!-- Campos ocultos para enviar los valores calculados -->
+            <input type="hidden" name="imc_valor" id="hidden_imc">
+            <input type="hidden" name="peso_max_valor" id="hidden_peso_max">
+
+
+
+            <!-- Sección Datos Paciente -->
+            <div class="section">
+                <div class="grid-container">
+                    <div class="input-group">
+                        <h2 class="section-title">DNI</h2>
+                        <textarea name="dni" rows="4" placeholder="Describa DNI..."></textarea>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Sección Objetivos -->
+            <div class="section">
+                <h2 class="section-title">OBJETIVOS NUTRICIONALES</h2>
+                <div class="input-group">
+                    <textarea name="objetivos" placeholder="Ingrese los objetivos..."></textarea>
                 </div>
             </div>
 
@@ -678,17 +746,11 @@
             <div class="section">
                 <h2 class="section-title">INDICACIONES</h2>
                 <div class="input-group">
-                    <textarea placeholder="Ejemplo: régimen común, hipocalórico..."></textarea>
+                    <textarea name="indicaciones" placeholder="Ejemplo: régimen común, hipocalórico..."></textarea>
                 </div>
             </div>
 
-            <!-- Sección Objetivos -->
-            <div class="section">
-                <h2 class="section-title">OBJETIVOS NUTRICIONALES</h2>
-                <div class="input-group">
-                    <textarea placeholder="Ingrese los objetivos..."></textarea>
-                </div>
-            </div>
+
 
             <!-- Sección Control -->
             <div class="section">
@@ -696,41 +758,138 @@
                 <div class="form-grid">
                     <div class="input-group">
                         <label>Fecha próximo control:</label>
-                        <input type="date" required>
+                        <input name="proximo_control" type="date" required>
                     </div>
                 </div>
             </div>
 
-            <button type="submit">Guardar Ficha</button>
+
+
+            <button type="submit" value="Enviar mi formulario">Guardar ficha</button>
+
         </form>
+
+
+
     </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const darkmodeToggle = document.getElementById('darkmode-toggle');
-        const htmlElement = document.documentElement;
-        
-        // Verificar tema almacenado
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            htmlElement.classList.add('dark-mode');
-            darkmodeToggle.checked = true;
+
+    <script>
+        setTimeout(function () {
+            const elementoP = document.querySelector('.msg');
+            if (elementoP) {
+                elementoP.classList.add('fade-out');
+                // Eliminar el elemento después de la animación
+                setTimeout(() => {
+                    if (elementoP && elementoP.parentNode) {
+                        elementoP.parentNode.removeChild(elementoP);
+                    }
+                }, 500);
+            }
+        }, 2500); // Aumentamos ligeramente el tiempo visible
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const darkmodeToggle = document.getElementById('darkmode-toggle');
+            const htmlElement = document.documentElement;
+
+            // Verificar tema almacenado
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                htmlElement.classList.add('dark-mode');
+                darkmodeToggle.checked = true;
+            }
+
+            // Alternar modo oscuro con mejor compatibilidad
+            darkmodeToggle.addEventListener('change', function () {
+                if (this.checked) {
+                    htmlElement.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    htmlElement.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        function toggleAlergiaEspecificacion(show) {
+            document.getElementById('especificacion_alergias').style.display = show ? 'inline-block' : 'none';
+            if (!show) document.getElementById('especificacion_alergias').value = '';
+        }
+    </script>
+
+    <script>
+        function toggleSuplementosEspecificacion(show) {
+            document.getElementById('especificacion_suplementos').style.display = show ? 'inline-block' : 'none';
+            if (!show) document.getElementById('especificacion_suplementos').value = '';
+        }
+    </script>
+
+    <script>
+        // Cálculo de IMC y Peso Máximo
+        document.addEventListener('DOMContentLoaded', function () {
+            const pesoInput = document.getElementById('peso');
+            const tallaInput = document.getElementById('talla');
+            const imcInput = document.getElementById('imc');
+            const pesoMaxInput = document.getElementById('peso_max');
+            const hiddenImc = document.getElementById('hidden_imc');
+            const hiddenPesoMax = document.getElementById('hidden_peso_max');
+
+            function calcularAntropometria() {
+                const peso = parseFloat(pesoInput.value);
+                const talla = parseFloat(tallaInput.value);
+
+                if (peso > 0 && talla > 0) {
+                    // Calcular IMC
+                    const imc = peso / (talla * talla);
+                    imcInput.value = imc.toFixed(1);
+                    hiddenImc.value = imc.toFixed(1);
+
+                    // Calcular Peso Máximo (IMC objetivo = 25)
+                    const pesoMax = 24.9 * (talla * talla);
+                    pesoMaxInput.value = pesoMax.toFixed(1);
+                    hiddenPesoMax.value = pesoMax.toFixed(1);
+                } else {
+                    imcInput.value = '';
+                    pesoMaxInput.value = '';
+                    hiddenImc.value = '';
+                    hiddenPesoMax.value = '';
+                }
+            }
+
+            pesoInput.addEventListener('input', calcularAntropometria);
+            tallaInput.addEventListener('input', calcularAntropometria);
+        });
+    </script>
+
+    <script>
+
+        function calcularAdecuacion() {
+            const aportes = document.querySelectorAll('[name^="aporte_minuta_"]');
+            const requerimientos = document.querySelectorAll('[name^="requerimientos_"]');
+            const adecuaciones = document.querySelectorAll('[name^="adecuacion_"]');
+
+            for (let i = 0; i < aportes.length; i++) {
+                const aporte = parseFloat(aportes[i].value) || 0;
+                const requerimiento = parseFloat(requerimientos[i].value) || 0;
+
+                if (requerimiento !== 0) {
+                    adecuaciones[i].value = (aporte / requerimiento * 100).toFixed(2);
+                } else {
+                    adecuaciones[i].value = 0;
+                }
+            }
         }
 
-        // Alternar modo oscuro con mejor compatibilidad
-        darkmodeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                htmlElement.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                htmlElement.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    });
-</script>
+        // Asignar eventos a los inputs
+        document.querySelectorAll('input[name^="aporte_minuta_"], input[name^="requerimientos_"]')
+            .forEach(input => {
+                input.addEventListener('input', calcularAdecuacion);
+            });
 
-
+    </script>
 
 </body>
 

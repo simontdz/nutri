@@ -440,3 +440,183 @@ body {
 input, select, textarea {
     font-size: 16px !important;
 }
+/* Estilos para mensajes de éxito */
+.msg {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out, top 0.5s ease-in-out;
+    font-weight: 500;
+    text-align: center;
+    min-width: 300px;
+    max-width: 90%;
+}
+
+.msg.fade-out {
+    opacity: 0;
+    top: -100px;
+}
+
+/* Modo oscuro para mensajes */
+.dark-mode .msg {
+    background-color: #2E7D32;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+
+.calculated-field {
+    background-color: #e8f4ff;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.dark-mode .calculated-field {
+    background-color: #2d4059;
+    color: #e0e0e0;
+}
+
+
+/* ===== NAVBAR ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(118, 29, 109);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 10%;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+   
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: rgb(118, 29, 109);
+    padding: 0 10%;
+    margin-top: 72px; /* Ajuste por el navbar fijo */
+}
+
+.hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color: var(--dark-color);
+}
+
+.hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: var(--dark-color);
+}
+
+.btn {
+    display: inline-block;
+    background-color: rgb(166, 53, 155);;
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    background-color: #520845;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Ajustes para el tema toggle en el navbar */
+.navbar .theme-toggle-container {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-left: 1rem;
+}
+
+/* Media queries para el navbar */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 72px;
+        left: -100%;
+        width: 80%;
+        height: calc(100vh - 72px);
+        background-color: rgb(118, 29, 109);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2rem;
+        transition: left 0.3s;
+    }
+    
+    .nav-links.active {
+        left: 0;
+    }
+    
+    .nav-links li {
+        margin: 1.5rem 0;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+}
+
+/* Modo oscuro para el navbar */
+.dark-mode .navbar {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
