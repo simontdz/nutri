@@ -55,10 +55,6 @@
     <div class="container">
 
     
-        {% if msg %}
-        <p class="msg">{{ msg }}</p>
-        {% endif %}
-
         <h1>Ficha Clínica Nutricional</h1>
 
         <form action="{{ url_for('registrarForm') }}" method="POST" autocomplete="off">
@@ -264,48 +260,105 @@
                 </div>
 
                 <!-- Sección 5: Signos y Síntomas -->
-                <div class="section">
-                    <label>Signos y Síntomas</label>
-                    <div class="form-grid">
-                        <div class="checkbox-group">
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Insomnio"> Insomnio
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Cefalea"> Cefalea
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Ansiedad"> Ansiedad
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Fatiga"> Fatiga
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Poliurea"> Poliurea
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Polifagia"> Polifagia
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Indigestión"> Indigestión
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Tinnitus"> Tinnitus
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" name="sintomas[]" value="Dolor estomacal"> Dolor estomacal
-                            </label>
-                        </div>
 
-                    </div>
-                    <div class="inline-group">
+                <!-- Sección 5: Signos y Síntomas -->
+<div class="section">
+    <h2 class="section-title">SÍNTOMAS ASOCIADOS A DIAGNOSTICO DE BASE</h2>
+    
+    <!-- Diabetes -->
+    <div class="symptoms-category">
+        <h3>Diabetes:</h3>
+        <div class="checkbox-group">
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Polifagia"> POLIFAGIA (muchas ganas de comer)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Polidipsia"> POLIDIPSIA (mayor sensación de sed)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Poliurea"> POLIURIA (mayor ganas de orinar)
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Pérdida de peso involuntaria"> PÉRDIDA DE PESO INVOLUNTARIA
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Frío en las extremidades"> FRÍO EN LAS EXTREMIDADES
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Sensación de mareos"> SENSACIÓN DE MAREOS
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Fatiga"> FATIGA
+            </label>
+        </div>
+    </div>
 
-                        <label class="checkbox-item">
-                            <input type="checkbox">Otro:
-                        </label>
-                        <input type="text" style="flex:1" name="sintomas[]">
-                    </div>
-                </div>
+    <!-- Hipertensión -->
+    <div class="symptoms-category">
+        <h3>Hipertensión:</h3>
+        <div class="checkbox-group">
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Tinnitus"> TINNITUS
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Dolor de cabeza"> DOLOR DE CABEZA
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Visión borrosa"> VISIÓN BORROSA
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Mareos"> MAREOS
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Sensación de presión en el pecho"> SENSACIÓN DE PRESION EN EL PECHO
+            </label>
+        </div>
+    </div>
+
+    <!-- Síntomas Generales -->
+    <div class="symptoms-category">
+        <h3>Síntomas Generales:</h3>
+        <div class="checkbox-group">
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Dolor de espalda"> DOLOR DE ESPALDA
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Dolor de cabeza"> DOLOR DE CABEZA
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Dolor abdominal"> DOLOR ABDOMINAL
+            </label>
+        </div>
+    </div>
+
+    <!-- Síntomas Gastrointestinales -->
+    <div class="symptoms-category">
+        <h3>Síntomas Gastrointestinales:</h3>
+        <div class="checkbox-group">
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Vómitos"> VÓMITOS
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Náuseas"> NAÚSEAS
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Diarrea"> DIARREA
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Estreñimiento"> ESTREÑIMIENTO
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Distensión abdominal"> DISTENSIÓN ABDOMINAL
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Acidez"> ACIDÉZ
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="sintomas[]" value="Reflujo gastroesofágico"> REFLUJO GASTROESOFÁGICO
+            </label>
+        </div>
+    </div>
+
 
 
 
